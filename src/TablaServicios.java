@@ -1,5 +1,10 @@
 import java.net.InetAddress;
 
+/**
+ * La clase TablaServicios proporciona funcionalidad para gestionar y recuperar combinaciones
+ * de direcciones IP del servidor y puertos basadas en un identificador dado. Detecta automáticamente
+ * la dirección IP del servidor y permite la recuperación de direcciones específicas de servicios.
+ */
 public class TablaServicios {
     private static String ipServidor;
 

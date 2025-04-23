@@ -1,5 +1,34 @@
 import java.util.Scanner;
 
+/**
+ * La clase LanzadorConcurrente es responsable de lanzar múltiples hilos de clientes
+ * de manera concurrente. Permite al usuario especificar la cantidad de clientes a lanzar
+ * mediante entrada por consola o utiliza un valor predeterminado si no se proporciona uno válido.
+ * Cada cliente se ejecuta como un hilo separado, y el programa mide el tiempo total de ejecución
+ * de todos los clientes.
+ * 
+ * Características:
+ * - Permite configurar dinámicamente el número de clientes a lanzar.
+ * - Ejecuta cada cliente en un hilo separado.
+ * - Mide y muestra el tiempo total de ejecución de todos los clientes.
+ * - Maneja entradas inválidas de manera adecuada utilizando un valor predeterminado.
+ * 
+ * Uso:
+ * java LanzadorConcurrente
+ * El programa solicitará al usuario que ingrese el número de clientes a lanzar.
+ * 
+ * Notas:
+ * - La clase ClienteConsulta debe estar implementada y ser accesible para que este programa funcione.
+ * - Asegúrese de manejar excepciones adecuadamente en la clase ClienteConsulta para evitar errores en tiempo de ejecución.
+ * 
+ * Ejemplo de salida:
+ * ¿Cuántos clientes deseas lanzar? 10
+ * [INICIO] Lanzando 10 clientes...
+ * [FIN] Todos los clientes terminaron.
+ * Tiempo total: 1234 ms
+ * 
+ */
+
 public class LanzadorConcurrente {
 
     private static int NUM_CLIENTES = 16; // Cambia a 4, 32, 64, etc.

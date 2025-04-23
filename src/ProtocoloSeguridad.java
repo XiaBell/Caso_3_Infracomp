@@ -7,6 +7,32 @@ import java.security.*;
 import java.security.spec.*;
 import java.util.Arrays;
 
+/**
+ * La clase ProtocoloSeguridad proporciona métodos para implementar comunicación segura
+ * utilizando técnicas criptográficas como firmas RSA, intercambio de claves Diffie-Hellman
+ * y cifrado AES con HMAC para garantizar la integridad de los mensajes.
+ * 
+ * Características principales:
+ * - Generación y verificación de firmas RSA.
+ * - Firma y validación de parámetros Diffie-Hellman.
+ * - Intercambio de claves Diffie-Hellman para generar claves de sesión.
+ * - Transmisión segura de mensajes mediante cifrado AES y HMAC.
+ * - Métodos utilitarios para cargar claves RSA y convertir bytes a formato hexadecimal.
+ * 
+ * Clases internas:
+ * - {@link DHResultado}: Representa los parámetros y resultados de Diffie-Hellman.
+ * - {@link ClavesSesion}: Contiene las claves de sesión para AES y HMAC.
+ * - {@link MensajeSeguro}: Encapsula un mensaje transmitido de forma segura.
+ * 
+ * Uso:
+ * 1. Generar o cargar claves RSA para firmar y verificar.
+ * 2. Realizar el intercambio de claves Diffie-Hellman para establecer claves de sesión.
+ * 3. Usar las claves de sesión para enviar y recibir mensajes de forma segura.
+ * 
+ * Nota: Esta clase asume el uso de un generador de números aleatorios seguro y
+ * prácticas adecuadas de gestión de claves para garantizar la seguridad criptográfica.
+ */
+
 public class ProtocoloSeguridad {
 
     // === FIRMA RSA ===

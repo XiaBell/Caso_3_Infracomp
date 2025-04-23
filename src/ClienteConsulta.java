@@ -3,6 +3,36 @@ import java.math.BigInteger;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
+/**
+ * La clase ClienteConsulta representa una aplicación cliente que se comunica con un servidor
+ * para realizar operaciones seguras y delegar solicitudes de servicios. Establece una conexión
+ * segura utilizando protocolos criptográficos, intercambia mensajes y se conecta con un servidor
+ * delegado según el servicio seleccionado.
+ *
+ * Funcionalidades clave incluyen:
+ * - Establecer una conexión segura con el servidor utilizando los protocolos RSA y Diffie-Hellman.
+ * - Intercambiar claves criptográficas y validar firmas para garantizar una comunicación segura.
+ * - Obtener una lista de servicios disponibles y seleccionar un servicio para delegar.
+ * - Comunicarse con un servidor delegado para realizar consultas específicas relacionadas con el servicio.
+ *
+ * Uso:
+ * 1. Ejecutar el programa para establecer una conexión con el servidor principal.
+ * 2. Seleccionar un servicio de forma manual o automática según la configuración.
+ * 3. Interactuar con el servidor delegado para realizar la consulta del servicio seleccionado.
+ *
+ * Dependencias:
+ * - ProtocoloSeguridad: Clase de utilidades para operaciones criptográficas y mensajería segura.
+ * - LanzadorConcurrente: Clase de utilidades para determinar si la aplicación se ejecuta en modo automático.
+ *
+ * Excepciones:
+ * - SecurityException: Se lanza cuando falla la validación criptográfica.
+ * - IOException: Se lanza por errores de entrada/salida durante la comunicación.
+ *
+ * Nota: Asegúrese de que las claves criptográficas y configuraciones necesarias estén disponibles
+ * en las rutas especificadas antes de ejecutar la aplicación.
+ */
+
+ 
 public class ClienteConsulta {
     public static void main(String[] args) throws Exception {
         Socket socket = new Socket("localhost", 5000);

@@ -3,6 +3,39 @@ import java.net.*;
 import java.nio.ByteBuffer;
 import java.math.BigInteger;
 
+/**
+ * La clase ServidorPrincipal representa el servidor principal que maneja las conexiones
+ * de los clientes y delega las solicitudes de servicios a servidores secundarios. Implementa
+ * un protocolo de comunicación segura con los clientes, incluyendo autenticación, intercambio
+ * de claves y mensajes seguros.
+ * 
+ * Funcionalidades clave:
+ * - Inicialización de las IPs de la tabla de servicios.
+ * - Inicio de servidores delegados en puertos específicos.
+ * - Manejo de conexiones de clientes y gestión de comunicación segura.
+ * 
+ * El protocolo de comunicación consta de las siguientes fases:
+ * 1. Autenticación: El servidor autentica al cliente utilizando un mecanismo de desafío-respuesta
+ *    con firmas RSA.
+ * 2. Intercambio de claves: El servidor y el cliente realizan un intercambio de claves Diffie-Hellman
+ *    para derivar claves de sesión simétricas.
+ * 3. Solicitud de servicio: El servidor envía una tabla de servicios cifrada al cliente, recibe
+ *    el ID del servicio solicitado y responde con la dirección IP y puerto del servicio correspondiente.
+ * 
+ * Las excepciones se manejan durante la comunicación con los clientes para garantizar que el servidor
+ * permanezca operativo incluso si ocurren errores con clientes individuales.
+ * 
+ * Dependencias:
+ * - {@code TablaServicios}: Administra el mapeo de IDs de servicios a direcciones IP/puertos.
+ * - {@code ProtocoloSeguridad}: Proporciona utilidades criptográficas para validación RSA, intercambio
+ *   de claves Diffie-Hellman y mensajes seguros.
+ * - {@code ServidorDelegadoRunnable}: Representa los hilos de los servidores delegados.
+ * 
+ * Uso:
+ * java ServidorPrincipal
+ * 
+ * @throws Exception si ocurre un error durante la inicialización del servidor o el manejo de clientes.
+ */
 
 public class ServidorPrincipal {
 
