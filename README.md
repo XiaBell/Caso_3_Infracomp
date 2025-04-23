@@ -1,5 +1,5 @@
 
-# 🛫 Sistema de Consulta Segura para Aerolínea: Proyecto de Comunicación Segura Cliente-Servidor — Caso 3 InfraComp
+# 🛫 Sistema de Consulta para Aerolínea: Proyecto de Comunicación Segura Cliente-Servidor — Caso 3 InfraComp
 ## 🧾 Descripción
 
 Este proyecto implementa un sistema **cliente-servidor** con **protocolos de seguridad criptográfica** para garantizar la **autenticidad**, **confidencialidad** e **integridad** de las comunicaciones. Está desarrollado en **Java** como parte del curso de **Infraestructura Computacional**.
