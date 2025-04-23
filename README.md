@@ -1,40 +1,80 @@
-# Caso_3_Infracomp
 
-# 🛫 Sistema de Consulta Segura para Aerolínea
+# 🛫 Sistema de Consulta Segura para Aerolínea - Proyecto de Comunicación Segura Cliente-Servidor — Caso 3 InfraComp
+## 🧾 Descripción
 
-Este proyecto implementa un sistema de consulta de vuelos entre un cliente y un servidor principal, garantizando **comunicación segura** usando técnicas de **criptografía moderna**.
+Este proyecto implementa un sistema **cliente-servidor** con **protocolos de seguridad criptográfica** para garantizar la **autenticidad**, **confidencialidad** e **integridad** de las comunicaciones. Está desarrollado en **Java** como parte del curso de **Infraestructura Computacional**.
 
-## 🧩 Descripción General
+El sistema permite a un cliente consultar información de vuelos a través de un servidor principal, que delega la atención a uno de varios **servidores delegados**, según el servicio seleccionado.
 
-El sistema simula cómo una aerolínea podría permitir a sus usuarios consultar en línea:
+---
 
-- El estado de un vuelo
-- La disponibilidad de vuelos para un trayecto
-- El costo de un vuelo
+## 🚀 Estructura del protocolo
 
-Para garantizar la **confidencialidad** y **la integridad** de la información intercambiada, el cliente y el servidor principal se comunican de forma segura mediante **cifrado y firmas digitales**.
+El protocolo implementado sigue estas 3 fases:
 
-## 🔒 Seguridad Implementada
+### 🟠 Fase 1: Autenticación
+1. El cliente envía un saludo `HELLO`.
+2. El servidor responde con un reto aleatorio.
+3. El cliente **firma el reto** con su llave privada.
+4. El servidor valida la firma con la llave pública del cliente.
+5. Si la firma es válida, responde con `OK`.
 
-- **Intercambio de llaves Diffie-Hellman** para establecer una llave maestra compartida.
-- A partir de la llave maestra:
-  - Se genera una **llave de cifrado simétrico AES-256 (modo CBC)**
-  - Y una **llave para HMAC (SHA-256)** para validación de integridad.
-- **RSA (1024 bits)** y **SHA256withRSA** para firmar mensajes.
-- Si el mensaje recibido no pasa la validación con HMAC, se muestra `"Error en la consulta"` y termina el proceso.
+### 🟡 Fase 2: Intercambio de claves (Diffie-Hellman)
+6. El servidor envía los parámetros `p`, `g`, `g^a mod p` **firmados con RSA**.
+7. El cliente valida la firma y responde con `g^b mod p`.
+8. Ambos generan la clave maestra `K_master` y derivan:
+   - `K_AB1`: clave AES (cifrado)
+   - `K_AB2`: clave HMAC (integridad)
 
-## 🔁 Flujo de Comunicación
+### 🟢 Fase 3: Comunicación segura
+9. El servidor envía la tabla de servicios cifrada (AES) + HMAC.
+10. El cliente elige un servicio y lo envía de forma segura.
+11. El servidor responde con la dirección del **servidor delegado** correspondiente.
+12. El cliente se conecta automáticamente al delegado, realiza una consulta y recibe la respuesta.
 
-1. El cliente se conecta al servidor principal.
-2. Ambos establecen una llave de sesión segura.
-3. El servidor envía la lista de servicios disponibles.
-4. El cliente elige un servicio y solicita sus datos.
-5. El servidor responde con la IP y puerto del servidor delegado.
-6. El cliente finaliza la comunicación (la conexión con el servidor delegado no es parte de este proyecto).
+---
 
-## ⚙️ Implementación
+## 🧱 Componentes
 
-El sistema está hecho en **Java**, utilizando únicamente librerías estándar (`java.security`, `javax.crypto`, `BigInteger`, etc.). Las llaves pública y privada del servidor se generan previamente y se almacenan en archivos separados.
+| Clase                   | Descripción |
+|------------------------|-------------|
+| `ServidorPrincipal`    | Atiende al cliente, verifica identidad y delega |
+| `ClienteConsulta`      | Cliente que solicita un servicio y consulta al delegado |
+| `ServidorDelegadoRunnable` | Servidores específicos que responden por servicio |
+| `TablaServicios`       | Maneja las IPs y puertos por ID de servicio |
+| `ProtocoloSeguridad`   | Contiene toda la lógica de criptografía: RSA, AES, HMAC, DH |
+| `LanzadorConcurrente`  | Lanza múltiples clientes para pruebas concurrentes |
+
+---
+
+## 🔐 Seguridad implementada
+
+- **Firma Digital**: `SHA256withRSA` para retos y parámetros DH
+- **Cifrado Simétrico**: `AES/CBC/PKCS5Padding` para datos
+- **Integridad**: `HMAC-SHA256`
+- **Intercambio de claves**: `Diffie-Hellman` con SHA-512
+- **Cifrado Asimétrico**: utilizado para comparación de rendimiento (no en el protocolo)
+
+---
+
+## 📈 Pruebas y Medición de Rendimiento
+
+### Escenarios evaluados:
+
+1. **Iterativo**: 1 cliente haciendo 32 solicitudes consecutivas
+2. **Concurrente**: 4, 16, 32, 64 clientes simultáneos
+
+### Métricas recolectadas:
+
+- Tiempo para **firmar** con RSA
+- Tiempo para **cifrar la tabla**
+- Tiempo para **verificar la consulta** (HMAC)
+- Comparación de tiempos: **cifrado simétrico vs asimétrico**
+
+### Herramientas:
+
+- Se utilizaron `System.nanoTime()` y contadores internos en el servidor.
+- Los datos se almacenan en consola para exportar y graficar posteriormente.
 
 ---
 
