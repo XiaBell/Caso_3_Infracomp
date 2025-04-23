@@ -1,8 +1,30 @@
+import java.util.Scanner;
+
 public class LanzadorConcurrente {
 
-    private static final int NUM_CLIENTES = 16; // Cambia a 4, 32, 64, etc.
+    private static int NUM_CLIENTES = 16; // Cambia a 4, 32, 64, etc.
+
+    private static boolean Lanzadoractivo = false;
+
+    public static boolean getLanzadoractivo() {
+        return Lanzadoractivo;
+    }
 
     public static void main(String[] args) {
+
+        Lanzadoractivo = true;
+
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("¿Cuántos clientes deseas lanzar? ");
+            int numClientesInput = scanner.nextInt();
+            scanner.close();
+
+            if (numClientesInput > 0) {
+                NUM_CLIENTES = numClientesInput;
+            } else {
+                System.out.println("[ADVERTENCIA] Número inválido, se usará el valor predeterminado: " + NUM_CLIENTES);
+            }
+
         Thread[] clientes = new Thread[NUM_CLIENTES];
         long inicio = System.currentTimeMillis();
 

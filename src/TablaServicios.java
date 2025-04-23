@@ -1,33 +1,23 @@
-import java.util.*;
+import java.net.InetAddress;
 
 public class TablaServicios {
-    private final Map<Integer, String> servicios = new HashMap<>();
-    private final Map<Integer, String> descripciones = new HashMap<>();
+    private static String ipServidor;
 
-    public TablaServicios() {
-        // Asociaciones reales
-        servicios.put(1, "192.168.1.10:6000");
-        servicios.put(2, "192.168.1.11:6001");
-        servicios.put(3, "192.168.1.12:6002");
-
-        // Descripciones visibles para el usuario
-        descripciones.put(1, "Estado vuelo");
-        descripciones.put(2, "Disponibilidad vuelos");
-        descripciones.put(3, "Costo de un vuelo");
+    public static void inicializarIP() throws Exception {
+        ipServidor = InetAddress.getLocalHost().getHostAddress(); // Detecta IP automáticamente
+        System.out.println("[SERVIDOR] IP detectada: " + ipServidor);
     }
 
-    public String obtenerIPyPuerto(int id) {
-        return servicios.getOrDefault(id, "Servicio no encontrado");
+    public static String obtenerDireccionPorId(int id) {
+        return switch (id) {
+            case 1 -> ipServidor + ":6000";
+            case 2 -> ipServidor + ":6001";
+            case 3 -> ipServidor + ":6002";
+            default -> ipServidor + ":9999";
+        };
     }
 
-    public String obtenerDescripcion(int id) {
-        return descripciones.getOrDefault(id, "Descripción no disponible");
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        descripciones.forEach((id, nombre) -> sb.append(id).append(" → ").append(nombre).append("\n"));
-        return sb.toString();
+    public static String getIP() {
+        return ipServidor;
     }
 }
