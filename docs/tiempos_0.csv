@@ -1,0 +1,7 @@
+ID_Consulta,Tiempo_Firma_ms,Tiempo_Cifrado_Tabla_ms,Tiempo_Verificacion_HMAC_ms
+2,13,48,2239
+3,16,71,68
+3,1,5,18
+1,0,4,17
+3,1,16,20
+1,1,21,26
