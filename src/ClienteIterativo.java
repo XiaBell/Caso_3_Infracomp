@@ -6,18 +6,25 @@ import java.util.Scanner;
 
 public class ClienteIterativo {
 
+    private static int consultas = 1;
+
+    public static int getConsultas() {
+    return consultas;
+}
+
+
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
         System.out.print("¿Cuántas consultas desea ejecutar?: ");
-        int n = sc.nextInt();
+        consultas = sc.nextInt();
         sc.close();
 
-        if (n < 1) {
+        if (consultas < 1) {
             System.out.println("Dado que el número es mejor a 1, se ejecutará 1 consulta por defexto.");
-            n = 1;
+            consultas = 1;
         }
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < consultas; i++) {
             System.out.println("\n--- CONSULTA #" + (i + 1) + " ---");
 
             Socket socket = new Socket("localhost", 5000);

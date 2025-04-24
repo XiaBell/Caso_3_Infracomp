@@ -198,4 +198,12 @@ public class ProtocoloSeguridad {
             return contenido;
         }
     }
+
+    public static byte[] cifrarConLlavePublica(byte[] datos, String publicKeyPath) throws Exception {
+        PublicKey pub = cargarLlavePublica(publicKeyPath);
+        Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.ENCRYPT_MODE, pub);
+        return cipher.doFinal(datos);
+    }
+
 }

@@ -39,6 +39,10 @@ public class LanzadorConcurrente {
         return Lanzadoractivo;
     }
 
+    public static int getNumClientes() {
+        return NUM_CLIENTES;
+    }    
+
     public static void main(String[] args) {
 
         Lanzadoractivo = true;
